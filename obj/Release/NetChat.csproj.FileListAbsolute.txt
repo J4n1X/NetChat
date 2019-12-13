@@ -1,0 +1,10 @@
+C:\Users\janic\source\repos\Network Adventues\NetChat\bin\Release\NetChat.exe.config
+C:\Users\janic\source\repos\Network Adventues\NetChat\bin\Release\NetChat.exe
+C:\Users\janic\source\repos\Network Adventues\NetChat\bin\Release\NetChat.pdb
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.ClientForm.resources
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.csproj.GenerateResource.cache
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.exe
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.pdb
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.csprojAssemblyReference.cache
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.ConfigSetter.resources
+C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.MainMenu.resources
