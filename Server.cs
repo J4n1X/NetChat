@@ -9,7 +9,9 @@ namespace Chat
 {
     class Server
     {
-        //use this link: http://csharp.net-informations.com/communications/csharp-chat-server.htm
+        /*use this link: http://csharp.net-informations.com/communications/csharp-chat-server.htm
+         * Summary: This Programs main Thread is always listening to incoming Messages. The first message is always the Username. Messages are the length of the TCPclient Buffer and get terminated by a $. The User gets added to the Userlist and a Thread is created for the User.
+         */
         private IPAddress serverIp;
         private TcpListener serverSocket;
         private TcpClient clientSocket = default;
@@ -42,7 +44,7 @@ namespace Chat
         }
         public void StopServer()
         {
-
+            //This is currently unused, perhaps use later...
         }
         public void ClientAdd()
         {
@@ -56,7 +58,8 @@ namespace Chat
                 NetworkStream networkStream = clientSocket.GetStream();
                 networkStream.Read(bytesFrom, 0, bytesFrom.Length);
                 dataFromClient = System.Text.Encoding.ASCII.GetString(bytesFrom);
-                dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$")); //This is the Username
+                //This gets the Username from the first message.
+                dataFromClient = dataFromClient.Substring(0, dataFromClient.IndexOf("$"));
 
                 //Now add the User to the list to keep track of him.
                 ClientsList.Add(dataFromClient, clientSocket);
@@ -116,6 +119,7 @@ namespace Chat
         //This is the Client Thread
         public void ClientCommunicator()
         {
+            //inefficient way of storing incoming Bytes, but simple
             byte[] bytesReceived = new byte[clientSocket.ReceiveBufferSize];
             string dataFromClient;
             NetworkStream networkStream = clientSocket.GetStream();

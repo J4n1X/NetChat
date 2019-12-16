@@ -55,7 +55,15 @@ namespace NetChat
 
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ctThread.Abort();
+            try
+            {
+                ctThread.Abort();
+
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Form Closed without started Thread");
+            }
         }
         private void send()
         {
