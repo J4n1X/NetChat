@@ -135,7 +135,7 @@ namespace Chat
                     Server.Broadcast(dataFromClient, clNo, true, false);
                     Console.WriteLine("Message from Client - " + clNo + " " + dataFromClient);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     Console.WriteLine("Client " + clNo + " Disconnecting");
                     Server.ClientRemove(clNo);
