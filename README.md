@@ -1,13 +1,5 @@
 # NetChat
-You want to know why this code looks like crap? Well, I lost it and had to use dotpeek to decompile it. Well, tough luck, guess I'll clean up soon.
+This Program is an attempt at learning how to communicate over the Internet. The way I wish to accomplish this is to write a Messaging System with a Client-Server model.
 
-
-Progress so far:
-
-Got the Connection to GitHub working, experiments are commencing
-
-Got actual Workflows to build the Program now. Amazing.
-
-Projects Client-Side and Server-Side created and Issue added.
-
-New Branch created.
+The Program is currently barely usable, unstable and it will crash sometimes. If you encounter Issues, please create an Issue request, as I can sort out and fix the problem faster if I actually know about it.
+Feel free to use all the files in This Repository however you want!
