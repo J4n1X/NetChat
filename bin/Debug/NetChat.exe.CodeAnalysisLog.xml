@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2019\community\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="16.0">
+ <Targets>
+  <Target Name="C:\Users\janic\source\repos\Network Adventures\NetChat\bin\Debug\NetChat.exe">
+   <Modules>
+    <Module Name="netchat.exe">
+     <Messages>
+      <Message TypeName="MarkWindowsFormsEntryPointsWithStaThread" Category="Microsoft.Usage" CheckId="CA2232" Status="Active" Created="2019-12-17 08:55:22Z" FixCategory="NonBreaking">
+       <Issue Certainty="95" Level="Error">Markieren Sie die Einstiegspunktmethode 'Program.Main(string[])' in Assembly 'NetChat.exe' mit einem STAThreadAttribute.</Issue>
+      </Message>
+     </Messages>
+     <Namespaces>
+      <Namespace Name="NetChat">
+       <Types>
+        <Type Name="ClientForm" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message Id="clientSocket" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2019-12-17 08:55:22Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\janic\source\repos\Network Adventures\NetChat" File="ClientForm.Designer.cs" Line="15">'ClientForm' enthält das Feld "'ClientForm.clientSocket'", das vom Typ IDisposable ist: 'TcpClient'. Ändern Sie die Dispose-Methode für 'ClientForm', sodass für dieses Feld Dispose oder Close aufgerufen wird.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213">
+   <Name>Verwerfbare Felder verwerfen</Name>
+   <Description>Wenn ein Typ, der IDisposable implementiert, über Felder verfügt, die ebenfalls IDisposable implementieren, sollte die Dispose()-Implementierung des kapselnden Typs auf jedem verwerfbaren Feld Dispose() aufrufen.</Description>
+   <Resolution Name="Default">{0} enthält das Feld "{1}", das vom Typ IDisposable ist: {2}. Ändern Sie die Dispose-Methode für {0}, sodass für dieses Feld Dispose oder Close aufgerufen wird.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182328.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="usagerules.dll" Version="16.0.0.0" />
+  </Rule>
+  <Rule TypeName="MarkWindowsFormsEntryPointsWithStaThread" Category="Microsoft.Usage" CheckId="CA2232">
+   <Name>Windows Forms-Einstiegspunkte mit STAThread markieren</Name>
+   <Description>Assemblys, die auf System.Windows.Forms verweisen, sollten über ein STAThreadAttribute verfügen. Wenn dieses Attribut nicht angewendet werden kann, funktioniert die Anwendung wahrscheinlich nicht. Windows Forms verwendet eine Reihe von Komponenten, die das STA-Modell verwenden.</Description>
+   <Resolution Name="Default">Markieren Sie die Einstiegspunktmethode {0} in Assembly {1} mit einem STAThreadAttribute.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182351.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">Error</MessageLevel>
+   <File Name="usagerules.dll" Version="16.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Kategorie</String>
+  <String Key="Certainty">Sicherheit</String>
+  <String Key="CollapseAll">Alle zuklappen</String>
+  <String Key="CheckId">Prüf-ID</String>
+  <String Key="Error">Fehler</String>
+  <String Key="Errors">Fehler</String>
+  <String Key="ExpandAll">Alle aufklappen</String>
+  <String Key="Help">Hilfe</String>
+  <String Key="Line">Zeile</String>
+  <String Key="Messages">Meldung(en)</String>
+  <String Key="LocationNotStoredInPdb">[Nicht in PDB gespeicherter Speicherort]</String>
+  <String Key="Project">Projekt</String>
+  <String Key="Resolution">Auflösung</String>
+  <String Key="Rule">Regel</String>
+  <String Key="RuleFile">Regeldatei</String>
+  <String Key="RuleDescription">Regelbeschreibung</String>
+  <String Key="Source">Quelle</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Ziel</String>
+  <String Key="Warning">Warnung</String>
+  <String Key="Warnings">Warnung(en)</String>
+  <String Key="ReportTitle">Codeanalysebericht</String>
+ </Localized>
+</FxCopReport>
