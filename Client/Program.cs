@@ -1,6 +1,5 @@
 ﻿using NetChat;
 using System;
-using System.Net.Sockets;
 
 //This Program is the Main Menu, for now
 namespace Chat
