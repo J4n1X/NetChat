@@ -17,3 +17,12 @@ C:\Users\janic\source\repos\Network Adventures\NetChat\bin\Debug\NetChat.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\bin\Debug\NetChat.pdb
 C:\Users\janic\source\repos\Network Adventures\NetChat\bin\Debug\NetChat.exe.CodeAnalysisLog.xml
 C:\Users\janic\source\repos\Network Adventures\NetChat\bin\Debug\NetChat.exe.lastcodeanalysissucceeded
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\bin\Debug\NetChat.exe.config
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\bin\Debug\NetChat.exe
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\bin\Debug\NetChat.pdb
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.csprojAssemblyReference.cache
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.ClientForm.resources
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.Properties.Resources.resources
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.csproj.GenerateResource.cache
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.exe
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.pdb

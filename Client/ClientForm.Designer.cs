@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ClientForm));
             this.chatHistory = new System.Windows.Forms.TextBox();
             this.serverAddr = new System.Windows.Forms.Label();
             this.connectButton = new System.Windows.Forms.Button();
@@ -35,6 +36,8 @@
             this.sendButton = new System.Windows.Forms.Button();
             this.msgBox = new System.Windows.Forms.TextBox();
             this.serverIPBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.startServerButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // chatHistory
@@ -82,6 +85,8 @@
             // 
             // sendButton
             // 
+            this.sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendButton.Enabled = false;
             this.sendButton.Location = new System.Drawing.Point(256, 314);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(75, 23);
@@ -92,6 +97,8 @@
             // 
             // msgBox
             // 
+            this.msgBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.msgBox.Location = new System.Drawing.Point(12, 314);
             this.msgBox.Name = "msgBox";
             this.msgBox.Size = new System.Drawing.Size(238, 20);
@@ -105,12 +112,33 @@
             this.serverIPBox.Size = new System.Drawing.Size(183, 20);
             this.serverIPBox.TabIndex = 7;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 13);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Name: ";
+            // 
+            // startServerButton
+            // 
+            this.startServerButton.Location = new System.Drawing.Point(256, 35);
+            this.startServerButton.Name = "startServerButton";
+            this.startServerButton.Size = new System.Drawing.Size(75, 23);
+            this.startServerButton.TabIndex = 9;
+            this.startServerButton.Text = "Server";
+            this.startServerButton.UseVisualStyleBackColor = true;
+            this.startServerButton.Click += new System.EventHandler(this.startServerButton_Click);
+            // 
             // ClientForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.ClientSize = new System.Drawing.Size(343, 360);
+            this.Controls.Add(this.startServerButton);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.serverIPBox);
             this.Controls.Add(this.msgBox);
             this.Controls.Add(this.sendButton);
@@ -118,6 +146,7 @@
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.serverAddr);
             this.Controls.Add(this.chatHistory);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ClientForm";
             this.Text = "ClientForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ClientForm_FormClosing);
@@ -135,5 +164,7 @@
         private System.Windows.Forms.Button sendButton;
         private System.Windows.Forms.TextBox msgBox;
         private System.Windows.Forms.TextBox serverIPBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button startServerButton;
     }
 }

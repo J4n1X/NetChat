@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Net.Sockets;
 
 namespace Chat
 {
@@ -19,21 +19,20 @@ namespace Chat
         private List<string> Log = new List<string>();
 
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
             //just init the Server
             Server server = new Server();
-            server.StartServer();
+            server.StartServer(args[0]);
             server.ClientAdd();
         }
 
-        public void StartServer()
+        public void StartServer(string temp = "")
         {
-            Console.Write("Enter Server-IP:");
-            var temp = Console.ReadLine();
-
             if (temp == "")
             {
+                Console.Write("Enter Server-IP:");
+                temp = Console.ReadLine();
                 serverIp = IPAddress.Parse("127.0.0.1");
             }
             else
@@ -102,20 +101,12 @@ namespace Chat
 
     public class clientHandler
     {
-#pragma warning disable CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
         TcpClient clientSocket;
-#pragma warning restore CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
         string clNo;
-#pragma warning disable CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
         IDictionary<string, TcpClient> clientsList;
-#pragma warning restore CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
         public static IDictionary<string, Thread> threadList = new Dictionary<string, Thread>();
 
-#pragma warning disable CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
-#pragma warning disable CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
         public void StartClientThread(TcpClient inClientSocket, string clineNo, IDictionary<string, TcpClient> cList)
-#pragma warning restore CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
-#pragma warning restore CS0246 // Der Typ- oder Namespacename "TcpClient" wurde nicht gefunden (möglicherweise fehlt eine using-Direktive oder ein Assemblyverweis).
         {
             clientSocket = inClientSocket;
             clNo = clineNo;

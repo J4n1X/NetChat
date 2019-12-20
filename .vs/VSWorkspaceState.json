@@ -1,4 +1,8 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\Client"
+  ],
+  "SelectedNode": "\\Client\\ClientForm.cs",
   "PreviewInSolutionExplorer": false
 }
