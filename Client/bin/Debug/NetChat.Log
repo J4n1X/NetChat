@@ -1,3 +1,7 @@
 --------------------
-20, 12, 2019
---------------------Ein Verbindungsversuch ist fehlgeschlagen, da die Gegenstelle nach einer bestimmten Zeitspanne nicht richtig reagiert hat, oder die hergestellte Verbindung war fehlerhaft, da der verbundene Host nicht reagiert hat 192.168.0.1:8888
+01.01.2020
+--------------------
+
+Ein Socketvorgang bezog sich auf ein nicht verfügbares Netzwerk 0.0.0.12:8888
+FATAL: An Unhandeled Error has been caught. The Program will be terminated: Die Methode oder der Vorgang ist nicht implementiert.
+Form closed with ErrorDer Objektverweis wurde nicht auf eine Objektinstanz festgelegt.

@@ -12,7 +12,7 @@ namespace NetChat
 {
     public partial class ClientForm : Form
     {
-        TcpClient clientSocket = new TcpClient();//Code suggestion is wrong, see DisposeObj()
+        TcpClient clientSocket = new TcpClient();
         NetworkStream serverStream = default;
         Thread ctThread;
         List<string> Log = new List<string>();
@@ -20,8 +20,15 @@ namespace NetChat
         public ClientForm()
         {
             InitializeComponent();
+            clientSocket.ReceiveTimeout = 15;
+            clientSocket.SendTimeout = 15;
+            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
 
+
+
+        //Creates Messaging Thread and Handles Errors while doing so
         private void connectButton_Click(object sender, EventArgs e)
         {
             IPAddress temp;
@@ -42,9 +49,10 @@ namespace NetChat
                 }
                 catch (SocketException ex)
                 {
+                    //Returns the Connection Error as a Message Box (Text grabbed from Resource File)
+                    Log.Add(ex.Message);
                     var msgbox = MessageBox.Show(Resources.ConnectFailedPrompt, Resources.ErrorTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                     if (msgbox == DialogResult.Yes) { MessageBox.Show(ex.Message); }
-                    Log.Add(ex.Message);
                     return;
                 }
             }
@@ -52,6 +60,7 @@ namespace NetChat
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
 
+            //To avoid Exceptions
             sendButton.Enabled = true;
 
             ctThread = new Thread(getMessage);
@@ -94,21 +103,9 @@ namespace NetChat
 
 
 
-
+        //Clean up and write Log
         private void ClientForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            var Prompt = MessageBox.Show(Resources.SaveLogPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Prompt == DialogResult.Yes)
-            {
-                using (StreamWriter file = File.CreateText("NetChat.Log"))
-                {
-                    foreach (string Line in Log)
-                    {
-                        file.Write("--------------------\n" + DateTime.Now.ToString("dd, MM, yyyy") + "\n--------------------\n");
-                        file.WriteLine(Line);
-                    }
-                }
-            }
             try
             {
                 DisposeObj();
@@ -117,8 +114,40 @@ namespace NetChat
             {
                 Log.Add(Resources.ClosingError + ex.Message);
             }
+            var Prompt = MessageBox.Show(Resources.SaveLogPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (Prompt == DialogResult.Yes)
+            {
+                if (!File.Exists("NetChat.log")) { File.CreateText("NetChat.log"); }
+                StreamWriter file = new StreamWriter("NetChat.log",append:true);
+                file.WriteLine("--------------------\n" + DateTime.Now.ToString("dd.MM.yyyy") + "\n--------------------\n");
+                foreach(string str in Log) { file.WriteLine(str); }
+                file.Close();
+
+            }
         }
 
+
+
+
+        //Catch ALL non-handeled Errors
+        private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        {
+            MessageBox.Show(Resources.ApplicationThreadError + ": " + e.Exception.Message, Resources.ErrorTitle);
+            Log.Add("FATAL:" + Resources.ApplicationThreadError + ": " + e.Exception.Message);
+            Application.Exit();
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            MessageBox.Show(Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception).Message, Resources.ErrorTitle);
+            Log.Add("FATAL: " + Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception).Message);
+            Application.Exit();
+        }
+
+        private void causeLocalDomainCrashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
 
         //Non-Event-Methods
         private void send(string Message)
@@ -151,14 +180,12 @@ namespace NetChat
             else
                 chatHistory.Text = chatHistory.Text + Environment.NewLine + " >> " + readData;
         }
-
-
         private void DisposeObj()
         {
             ctThread.Abort();
             clientSocket.Close();
         }
 
-
     }
+
 }

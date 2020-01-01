@@ -8,3 +8,12 @@ C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.pdb
 C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.csprojAssemblyReference.cache
 C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.ConfigSetter.resources
 C:\Users\janic\source\repos\Network Adventues\NetChat\obj\Release\NetChat.MainMenu.resources
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\bin\Release\NetChat.exe.config
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\bin\Release\NetChat.exe
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\bin\Release\NetChat.pdb
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.csprojAssemblyReference.cache
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.ClientForm.resources
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.Properties.Resources.resources
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.csproj.GenerateResource.cache
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.exe
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.pdb

@@ -61,7 +61,16 @@ namespace NetChat.Properties {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Form closed with Error ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die An Unhandeled Error has occured in the Application Thread. The Program will be terminated ähnelt.
+        /// </summary>
+        internal static string ApplicationThreadError {
+            get {
+                return ResourceManager.GetString("ApplicationThreadError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Form closed with Error:  ähnelt.
         /// </summary>
         internal static string ClosingError {
             get {
@@ -75,6 +84,15 @@ namespace NetChat.Properties {
         internal static string ConnectFailedPrompt {
             get {
                 return ResourceManager.GetString("ConnectFailedPrompt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die An Unhandeled Error has been caught. The Program will be terminated ähnelt.
+        /// </summary>
+        internal static string CurrentDomainError {
+            get {
+                return ResourceManager.GetString("CurrentDomainError", resourceCulture);
             }
         }
         

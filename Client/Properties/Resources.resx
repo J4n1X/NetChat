@@ -133,7 +133,7 @@
     <value>Error!</value>
   </data>
   <data name="ClosingError" xml:space="preserve">
-    <value>Form closed with Error</value>
+    <value>Form closed with Error: </value>
   </data>
   <data name="SaveLogPrompt" xml:space="preserve">
     <value>Save Log?
@@ -141,5 +141,11 @@
   </data>
   <data name="startServerIP" xml:space="preserve">
     <value>127.0.0.1</value>
+  </data>
+  <data name="ApplicationThreadError" xml:space="preserve">
+    <value>An Unhandeled Error has occured in the Application Thread. The Program will be terminated</value>
+  </data>
+  <data name="CurrentDomainError" xml:space="preserve">
+    <value>An Unhandeled Error has been caught. The Program will be terminated</value>
   </data>
 </root>

@@ -11,7 +11,6 @@ C:\Users\janic\source\repos\Network Adventures\Server\obj\Debug\Server.pdb
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\bin\Debug\Server.exe.config
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\bin\Debug\Server.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\bin\Debug\Server.pdb
-C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.csprojAssemblyReference.cache
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.Properties.Resources.resources
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.csproj.GenerateResource.cache
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.exe
