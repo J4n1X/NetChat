@@ -1,4 +1,7 @@
-﻿using NetChat.Properties;
+﻿//NetChat ClientForm by J4n1X
+//Yes, it looks terrible, leave me alone!
+
+using NetChat.Properties;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

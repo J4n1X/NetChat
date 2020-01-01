@@ -1,4 +1,7 @@
-﻿using System;
+﻿//NetChat Server by J4n1X
+//Yes, it looks terrible, leave me alone!
+
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
