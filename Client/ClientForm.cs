@@ -23,8 +23,8 @@ namespace NetChat
         public ClientForm()
         {
             InitializeComponent();
-            clientSocket.ReceiveTimeout = 15;
-            clientSocket.SendTimeout = 15;
+            clientSocket.ReceiveTimeout = 1000;
+            clientSocket.SendTimeout = 1000;
             Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
