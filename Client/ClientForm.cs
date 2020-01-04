@@ -44,7 +44,7 @@ namespace NetChat
             {
                 try
                 {
-                    clientSocket.Connect(serverIPBox.Text, 8888);
+                    clientSocket.Connect(IPAddress.Parse(serverIPBox.Text), 8888);
                     serverStream = clientSocket.GetStream();
                     readData = "Connected to Chat Server ...";
                     Log.Add(readData + "IP = " + serverIPBox.Text);

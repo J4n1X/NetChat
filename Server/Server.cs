@@ -20,7 +20,7 @@ namespace Chat
         private TcpClient clientSocket = default;
         private static IDictionary<string, TcpClient> ClientsList = new Dictionary<string, TcpClient>();
         private List<string> Log = new List<string>();
-        private IPEndPoint serverEndPoint;
+        private IPAddress serverIP;
 
         [STAThread]
         static void Main(string[] args)
@@ -45,21 +45,19 @@ namespace Chat
             {
                 Console.Write("Enter Server-IP:");
                 temp = Console.ReadLine();
-                serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8888);
-                serverIp = IPAddress.Parse("127.0.0.1");
+                serverIP = IPAddress.Parse("127.0.0.1");
             }
             else
             {
-                serverEndPoint = new IPEndPoint(IPAddress.Parse(temp), 8888);
-                //serverIp = IPAddress.Parse(temp);
+                serverIP = IPAddress.Parse(temp);
             }
-            serverSocket = new TcpListener(serverEndPoint);
+            serverSocket = new TcpListener(serverIP,8888);
             serverSocket.Start();
             Console.WriteLine("Server successfully loaded!");
         }
         public void StopServer()
         {
-            //This is currently unused, perhaps use later...
+            //This is currently unused, perhaps i'll use it later...
         }
         public void ClientAdd()
         {
