@@ -5,4 +5,3 @@ C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Release\Server
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Release\Server.csproj.GenerateResource.cache
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Release\Server.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Release\Server.pdb
-C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Release\Server.csprojAssemblyReference.cache
