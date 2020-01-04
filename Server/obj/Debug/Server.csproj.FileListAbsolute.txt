@@ -15,4 +15,3 @@ C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.P
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.csproj.GenerateResource.cache
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.pdb
-C:\Users\janic\source\repos\Network Adventures\NetChat\Server\obj\Debug\Server.csprojAssemblyReference.cache

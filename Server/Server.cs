@@ -91,8 +91,8 @@ namespace Chat
 
                 clientHandler clHandler = new clientHandler();
                 clHandler.StartClientThread(clientSocket, dataFromClient, ClientsList);
-                Broadcast(dataFromClient + " Joined the Server", dataFromClient, false, false);
-                Console.WriteLine(dataFromClient + "Joined the Server");
+                Broadcast(dataFromClient + " joined the Server", dataFromClient, false, false);
+                Console.WriteLine(dataFromClient + " joined the Server");
             }
         }
 
@@ -110,10 +110,18 @@ namespace Chat
         //will handle Client. sysReq will control the passing of a system request to clients in the future.
         public static void Broadcast(string msg, string userName, bool dispName, bool sysReq)
         {
+            NetworkStream broadcastStream;
             foreach (KeyValuePair<string, TcpClient> Item in ClientsList)
             {
                 TcpClient broadcastSocket = Item.Value;
-                NetworkStream broadcastStream = broadcastSocket.GetStream();
+                try
+                {
+                    broadcastStream = broadcastSocket.GetStream();
+                }
+                catch
+                {
+                    continue;
+                }
                 Byte[] broadcastBuffer;
                 if (dispName) { broadcastBuffer = Encoding.ASCII.GetBytes(userName + " says: " + msg); } else { broadcastBuffer = Encoding.ASCII.GetBytes(msg); }
                 broadcastStream.Write(broadcastBuffer, 0, broadcastBuffer.Length);
@@ -159,7 +167,6 @@ namespace Chat
         public void ClientCommunicator()
         {
             //inefficient way of storing incoming Bytes, but simple
-            byte[] bytesReceived = new byte[clientSocket.ReceiveBufferSize];
             string dataFromClient;
             NetworkStream networkStream = clientSocket.GetStream();
 
@@ -168,16 +175,20 @@ namespace Chat
             {
                 try
                 {
+                    byte[] bytesReceived = new byte[clientSocket.ReceiveBufferSize];
+                    bytesReceived[0] = 36;  //Terminate if empty
                     networkStream.Read(bytesReceived, 0, bytesReceived.Length);
-                    dataFromClient = System.Text.Encoding.ASCII.GetString(bytesReceived);
+                    dataFromClient = Encoding.ASCII.GetString(bytesReceived);
                     dataFromClient = dataFromClient.Split('$')[0];
                     Server.Broadcast(dataFromClient, clNo, true, false);
-                    Console.WriteLine("Message from Client - " + clNo + "" + dataFromClient);
+                    Console.WriteLine("Message from Client - " + clNo + " " + dataFromClient);
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine("Client " + clNo + " Disconnecting");
                     Server.Broadcast("Client " + clNo + " has disconnected", "", false, false);
+                    Console.WriteLine("Client " + clNo + " has disconnected");
+                    //currently buggy
+                    clientsList.Remove(clNo);
                     Server.ClientRemove(clNo);
                     break;
                 }

@@ -15,10 +15,12 @@ namespace NetChat
 {
     public partial class ClientForm : Form
     {
+        private List<string> _Log = new List<string>();
+        public List<string> Log { get { return _Log; } set { _Log = value; } }
+
         TcpClient clientSocket = new TcpClient();
         NetworkStream serverStream = default;
         Thread ctThread;
-        List<string> Log = new List<string>();
         string readData;
         public ClientForm()
         {
@@ -47,13 +49,13 @@ namespace NetChat
                     clientSocket.Connect(IPAddress.Parse(serverIPBox.Text), 8888);
                     serverStream = clientSocket.GetStream();
                     readData = "Connected to Chat Server ...";
-                    Log.Add(readData + "IP = " + serverIPBox.Text);
+                    _Log.Add(readData + "IP = " + serverIPBox.Text);
                     msg();
                 }
                 catch (SocketException ex)
                 {
                     //Returns the Connection Error as a Message Box (Text grabbed from Resource File)
-                    Log.Add(Convert.ToString(ex));
+                    _Log.Add(Convert.ToString(ex));
                     var msgbox = MessageBox.Show(Resources.ConnectFailedPrompt, Resources.ErrorTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Error);
                     if (msgbox == DialogResult.Yes) { MessageBox.Show(ex.Message); }
                     return;
@@ -75,8 +77,10 @@ namespace NetChat
             var Prompt = MessageBox.Show(Resources.ServerStartPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Prompt == DialogResult.Yes)
             {
-                Process.Start(@"C:\Users\janic\source\repos\Network Adventures\NetChat\Server\bin\Debug\Server.exe", NetChat.Properties.Resources.startServerIP); //Change this at all costs for Release!
-                Log.Add("Started Server from Client");
+                IPAddressPrompt prompt = new IPAddressPrompt();
+                prompt.ShowDialog();
+
+                _Log.Add("Started Server from Client");
             }
         }
         //these 2 Methods do the same, but in different instances
@@ -120,7 +124,7 @@ namespace NetChat
             }
             catch (Exception)
             {
-                Log.Add(Resources.ClosingError+"(They are not important, the Form is closing anyway!)");
+                _Log.Add(Resources.ClosingError+"(They are not important, the Form is closing anyway!)");
             }
             var Prompt = MessageBox.Show(Resources.SaveLogPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Prompt == DialogResult.Yes)
@@ -128,7 +132,7 @@ namespace NetChat
                 if (!File.Exists("NetChat.log")) { File.CreateText("NetChat.log"); }
                 StreamWriter file = new StreamWriter("NetChat.log",append:true);
                 file.WriteLine("--------------------\n" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + "\n--------------------\n");
-                foreach(string str in Log) { file.WriteLine(str); }
+                foreach(string str in _Log) { file.WriteLine(str); }
                 file.Close();
 
             }
@@ -141,7 +145,7 @@ namespace NetChat
         private void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             MessageBox.Show(Resources.ApplicationThreadError + ": " + e.Exception.Message, Resources.ErrorTitle);
-            Log.Add("FATAL:" + Resources.ApplicationThreadError + ": " + e.Exception);
+            _Log.Add("FATAL:" + Resources.ApplicationThreadError + ": " + e.Exception);
             Application.Exit();
             throw e.Exception;
             
@@ -150,7 +154,7 @@ namespace NetChat
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             MessageBox.Show(Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception).Message, Resources.ErrorTitle);
-            Log.Add("FATAL: " + Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception));
+            _Log.Add("FATAL: " + Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception));
             Application.Exit();
             throw (e.ExceptionObject as Exception);
             
@@ -166,7 +170,7 @@ namespace NetChat
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
             msgBox.Text = "";
-            Log.Add("Client wrote: " + Message);
+            _Log.Add("Client wrote: " + Message);
         }
         private void getMessage()
         {

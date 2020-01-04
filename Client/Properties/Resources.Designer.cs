@@ -115,6 +115,15 @@ namespace NetChat.Properties {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die An exception has occured and the Server will not be started.\nMore info:\n ähnelt.
+        /// </summary>
+        internal static string IPAddressPrompt_Error {
+            get {
+                return ResourceManager.GetString("IPAddressPrompt_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Question ähnelt.
         /// </summary>
         internal static string MboxQuestionTitle {

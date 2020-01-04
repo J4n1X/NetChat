@@ -148,4 +148,7 @@
   <data name="CurrentDomainError" xml:space="preserve">
     <value>An Unhandeled Error has been caught. The Program will be terminated</value>
   </data>
+  <data name="IPAddressPrompt_Error" xml:space="preserve">
+    <value>An exception has occured and the Server will not be started.\nMore info:\n</value>
+  </data>
 </root>

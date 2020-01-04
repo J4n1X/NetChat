@@ -16,3 +16,4 @@ C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetCha
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.csproj.GenerateResource.cache
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.pdb
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.IPAddressPrompt.resources
