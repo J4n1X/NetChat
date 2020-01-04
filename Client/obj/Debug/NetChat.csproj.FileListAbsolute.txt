@@ -26,3 +26,4 @@ C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.pdb
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.IPAddressPrompt.resources
+C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Debug\NetChat.csprojAssemblyReference.cache

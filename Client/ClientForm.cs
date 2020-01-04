@@ -120,6 +120,7 @@ namespace NetChat
         {
             try
             {
+                send("/sys/disconnect");
                 DisposeObj();
             }
             catch (Exception)

@@ -122,8 +122,15 @@ namespace Chat
                 {
                     continue;
                 }
-                Byte[] broadcastBuffer;
-                if (dispName) { broadcastBuffer = Encoding.ASCII.GetBytes(userName + " says: " + msg); } else { broadcastBuffer = Encoding.ASCII.GetBytes(msg); }
+                byte[] broadcastBuffer;
+                if (dispName)
+                {
+                    broadcastBuffer = Encoding.ASCII.GetBytes(userName + " says: " + msg);
+                }
+                else
+                {
+                    broadcastBuffer = Encoding.ASCII.GetBytes(msg);
+                }
                 broadcastStream.Write(broadcastBuffer, 0, broadcastBuffer.Length);
                 broadcastStream.Flush();
             }
@@ -180,16 +187,21 @@ namespace Chat
                     networkStream.Read(bytesReceived, 0, bytesReceived.Length);
                     dataFromClient = Encoding.ASCII.GetString(bytesReceived);
                     dataFromClient = dataFromClient.Split('$')[0];
+                    if(dataFromClient == "/sys/disconnect")
+                    {
+                        Server.Broadcast(clNo + " has disconnected", "", false, false); Console.WriteLine("Client " + clNo + " has disconnected");
+                        clientsList.Remove(clNo);
+                        Server.ClientRemove(clNo);
+                    }
                     Server.Broadcast(dataFromClient, clNo, true, false);
                     Console.WriteLine("Message from Client - " + clNo + " " + dataFromClient);
                 }
                 catch (Exception)
                 {
-                    Server.Broadcast("Client " + clNo + " has disconnected", "", false, false);
-                    Console.WriteLine("Client " + clNo + " has disconnected");
-                    //currently buggy
-                    clientsList.Remove(clNo);
-                    Server.ClientRemove(clNo);
+                    //Server.Broadcast("Client " + clNo + " has disconnected", "", false, false);
+                    //Console.WriteLine("Client " + clNo + " has disconnected");
+                    //clientsList.Remove(clNo);
+                    //Server.ClientRemove(clNo);
                     break;
                 }
             }
