@@ -12,10 +12,12 @@ namespace Chat
 {
     class Server
     {
-        /*use this link: http://csharp.net-informations.com/communications/csharp-chat-server.htm
-         * Summary: This Programs main Thread is always listening to incoming Messages. The first message is always the Username. Messages are the length of the TCPclient Buffer and get terminated by a $. The User gets added to the Userlist and a Thread is created for the User.
+        /* Program code heavily inspired by: http://csharp.net-informations.com/communications/csharp-chat-server.htm
+         * Summary: This Programs main Thread is always listening to incoming Messages. The first message is always the Username. 
+         * Messages are the length of the TCPclient Buffer and get terminated by a $. The User gets added to the Userlist and a Thread is created for the User.
+         * 
+         * TODO: Rewrite Messaging System to UTF8, rewrite Message Parser
          */
-        private IPAddress serverIp;
         private TcpListener serverSocket;
         private TcpClient clientSocket = default;
         private static IDictionary<string, TcpClient> ClientsList = new Dictionary<string, TcpClient>();
@@ -36,7 +38,6 @@ namespace Chat
             {
                 server.StartServer(args[0]);
             }
-            server.ClientAdd();
         }
 
         public void StartServer(string temp = "")
@@ -45,7 +46,7 @@ namespace Chat
             {
                 Console.Write("Enter Server-IP:");
                 temp = Console.ReadLine();
-                serverIP = IPAddress.Parse("127.0.0.1");
+                serverIP = IPAddress.Parse(temp);
             }
             else
             {
@@ -54,6 +55,7 @@ namespace Chat
             serverSocket = new TcpListener(serverIP,8888);
             serverSocket.Start();
             Console.WriteLine("Server successfully loaded!");
+            ClientAdd();
         }
         public void StopServer()
         {
