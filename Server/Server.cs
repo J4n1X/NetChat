@@ -29,7 +29,7 @@ namespace Chat
         {
             //just init the Server
             Server server = new Server();
-            if(args.Length == 0)
+            if (args.Length == 0)
             {
                 Console.WriteLine("No args defined, starting Server with IP-prompt...");
                 server.StartServer();
@@ -44,15 +44,25 @@ namespace Chat
         {
             if (temp == "")
             {
-                Console.Write("Enter Server-IP:");
-                temp = Console.ReadLine();
-                serverIP = IPAddress.Parse(temp);
+                while (true)
+                {
+                    Console.Write("Enter Server-IP:");
+                    temp = Console.ReadLine();
+                    if (IPAddress.TryParse(temp, out serverIP))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter a valid IP-Address!");
+                    }
+                }
             }
             else
             {
                 serverIP = IPAddress.Parse(temp);
             }
-            serverSocket = new TcpListener(serverIP,8888);
+            serverSocket = new TcpListener(serverIP, 8888);
             serverSocket.Start();
             Console.WriteLine("Server successfully loaded!");
             ClientAdd();
@@ -162,11 +172,12 @@ namespace Chat
                     dataFromClient = System.Text.Encoding.ASCII.GetString(bytesReceived);
                     dataFromClient = dataFromClient.Split('$')[0];
                     Server.Broadcast(dataFromClient, clNo, true, false);
-                    Console.WriteLine("Message from Client - " + clNo + " " + dataFromClient);
+                    Console.WriteLine("Message from Client - " + clNo + "" + dataFromClient);
                 }
                 catch (Exception)
                 {
                     Console.WriteLine("Client " + clNo + " Disconnecting");
+                    Server.Broadcast("Client " + clNo + " has disconnected", "", false, false);
                     Server.ClientRemove(clNo);
                     break;
                 }

@@ -6,6 +6,7 @@ namespace Chat
 {
     class Program
     {
+        public string ServerIPAddr;
         [STAThread]
         static void Main()
         {
