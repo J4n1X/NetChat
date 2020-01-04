@@ -143,6 +143,8 @@ namespace NetChat
             MessageBox.Show(Resources.ApplicationThreadError + ": " + e.Exception.Message, Resources.ErrorTitle);
             Log.Add("FATAL:" + Resources.ApplicationThreadError + ": " + e.Exception);
             Application.Exit();
+            throw e.Exception;
+            
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -150,6 +152,8 @@ namespace NetChat
             MessageBox.Show(Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception).Message, Resources.ErrorTitle);
             Log.Add("FATAL: " + Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception));
             Application.Exit();
+            throw (e.ExceptionObject as Exception);
+            
         }
 
         
@@ -166,13 +170,14 @@ namespace NetChat
         }
         private void getMessage()
         {
+            serverStream = clientSocket.GetStream();
             while (true)
             {
-                serverStream = clientSocket.GetStream();
                 int buffSize = 0;
                 byte[] inStream = new byte[clientSocket.ReceiveBufferSize];
                 buffSize = clientSocket.ReceiveBufferSize;
-                serverStream.Read(inStream, 0, buffSize);
+                //This is because if the Read fails, the program exits because of an unhandeled exception
+                try { serverStream.Read(inStream, 0, buffSize); } catch { continue; }
                 string returndata = System.Text.Encoding.ASCII.GetString(inStream);
                 readData = "" + returndata;
                 msg();
