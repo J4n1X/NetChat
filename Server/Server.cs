@@ -20,13 +20,22 @@ namespace Chat
         private TcpClient clientSocket = default;
         private static IDictionary<string, TcpClient> ClientsList = new Dictionary<string, TcpClient>();
         private List<string> Log = new List<string>();
+        private IPEndPoint serverEndPoint;
 
         [STAThread]
         static void Main(string[] args)
         {
             //just init the Server
             Server server = new Server();
-            server.StartServer(args[0]);
+            if(args.Length == 0)
+            {
+                Console.WriteLine("No args defined, starting Server with IP-prompt...");
+                server.StartServer();
+            }
+            else
+            {
+                server.StartServer(args[0]);
+            }
             server.ClientAdd();
         }
 
@@ -36,13 +45,15 @@ namespace Chat
             {
                 Console.Write("Enter Server-IP:");
                 temp = Console.ReadLine();
+                serverEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8888);
                 serverIp = IPAddress.Parse("127.0.0.1");
             }
             else
             {
-                serverIp = IPAddress.Parse(temp);
+                serverEndPoint = new IPEndPoint(IPAddress.Parse(temp), 8888);
+                //serverIp = IPAddress.Parse(temp);
             }
-            serverSocket = new TcpListener(serverIp, 8888);
+            serverSocket = new TcpListener(serverEndPoint);
             serverSocket.Start();
             Console.WriteLine("Server successfully loaded!");
         }
@@ -52,7 +63,7 @@ namespace Chat
         }
         public void ClientAdd()
         {
-            while ((true))
+            while (true)
             {
                 clientSocket = serverSocket.AcceptTcpClient();
 
@@ -98,6 +109,20 @@ namespace Chat
                 broadcastStream.Write(broadcastBuffer, 0, broadcastBuffer.Length);
                 broadcastStream.Flush();
             }
+        }
+
+        //Currently unused
+        public static string GetLocalIPAddress()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("No network adapters with an IPv4 address in the system!");
         }
 
     }
