@@ -15,14 +15,12 @@ namespace NetChat
 
         private void okButton_Click(object sender, EventArgs e)
         {
-            bool executeSuccess = false;
             IPAddress IPAddr;
             if (IPAddress.TryParse(inputTextBox.Text, out IPAddr))
             {
                 try
                 {
                     Process.Start(@"C:\Users\janic\source\repos\Network Adventures\NetChat\Server\bin\Debug\Server.exe", IPAddr.ToString()); //Change this at all costs for Release!
-                    executeSuccess = true;
                 }
                 catch (Exception ex)
                 {

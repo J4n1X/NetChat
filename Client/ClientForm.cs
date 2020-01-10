@@ -18,6 +18,8 @@ namespace NetChat
         private List<string> _Log = new List<string>();
         public List<string> Log { get { return _Log; } set { _Log = value; } }
 
+        private string[] commands = { "/sys/disconnect", "/sys/msg", "/sys/file" };
+
         TcpClient clientSocket = new TcpClient();
         NetworkStream serverStream = default;
         Thread ctThread;
@@ -120,7 +122,7 @@ namespace NetChat
         {
             try
             {
-                send("/sys/disconnect");
+                send(commands[0]);
                 DisposeObj();
             }
             catch (Exception)

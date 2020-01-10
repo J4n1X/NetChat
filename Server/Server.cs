@@ -91,7 +91,7 @@ namespace Chat
 
                 clientHandler clHandler = new clientHandler();
                 clHandler.StartClientThread(clientSocket, dataFromClient, ClientsList);
-                Broadcast(dataFromClient + " joined the Server", dataFromClient, false, false);
+                SysBroadcast(dataFromClient + " joined the Server");
                 Console.WriteLine(dataFromClient + " joined the Server");
             }
         }
@@ -108,7 +108,7 @@ namespace Chat
         }
 
         //will handle Client. sysReq will control the passing of a system request to clients in the future.
-        public static void Broadcast(string msg, string userName, bool dispName, bool sysReq)
+        public static void Broadcast(string msg, string userName, bool dispName = false)
         {
             NetworkStream broadcastStream;
             foreach (KeyValuePair<string, TcpClient> Item in ClientsList)
@@ -133,6 +133,55 @@ namespace Chat
                 }
                 broadcastStream.Write(broadcastBuffer, 0, broadcastBuffer.Length);
                 broadcastStream.Flush();
+            }
+        }
+
+        public static void SysBroadcast(string msg, string[] targets = null, string userName = null)
+        {
+            if (userName != null)
+            {
+                msg = userName + " says: " + msg;
+            }
+            NetworkStream broadcastStream;
+            if (targets == null)
+            {
+                foreach (KeyValuePair<string, TcpClient> Item in ClientsList)
+                {
+                    TcpClient broadcastSocket = Item.Value;
+                    try
+                    {
+                        broadcastStream = broadcastSocket.GetStream();
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+
+                    byte[] broadcastBuffer = Encoding.ASCII.GetBytes(msg);
+
+                    broadcastStream.Write(broadcastBuffer, 0, broadcastBuffer.Length);
+                    broadcastStream.Flush();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    TcpClient broadcastSocket = default;
+                    ClientsList.TryGetValue(targets[i], out broadcastSocket);
+                    try
+                    {
+                        broadcastStream = broadcastSocket.GetStream();
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                    byte[] broadcastBuffer = Encoding.ASCII.GetBytes(msg);
+
+                    broadcastStream.Write(broadcastBuffer, 0, broadcastBuffer.Length);
+                    broadcastStream.Flush();
+                }
             }
         }
 
@@ -187,14 +236,29 @@ namespace Chat
                     networkStream.Read(bytesReceived, 0, bytesReceived.Length);
                     dataFromClient = Encoding.ASCII.GetString(bytesReceived);
                     dataFromClient = dataFromClient.Split('$')[0];
-                    if(dataFromClient == "/sys/disconnect")
+                    string[] splitmsg = dataFromClient.Split(' ');
+                    switch (dataFromClient.Split(' ')[0])
                     {
-                        Server.Broadcast(clNo + " has disconnected", "", false, false); Console.WriteLine("Client " + clNo + " has disconnected");
-                        clientsList.Remove(clNo);
-                        Server.ClientRemove(clNo);
+                        case "/sys/disconnect":    //remove the client from the list of connected clients
+                            Server.SysBroadcast(clNo + " has disconnected"); Console.WriteLine("Client " + clNo + " has disconnected");
+                            clientsList.Remove(clNo);
+                            Server.ClientRemove(clNo);
+                            break;
+                        case "/sys/msg":    //send message to targeted person
+                            string targetName = dataFromClient.Split(' ')[1];
+                            int argi = splitmsg[0].Length + splitmsg[1].Length + 2;
+                            string msg = clNo + " whispers you: " + dataFromClient.Substring(argi, dataFromClient.Length - argi);
+                            Server.SysBroadcast(msg, new string[] { targetName });
+                            msg = "You wispered to " + targetName + ": ";
+                            Server.SysBroadcast(msg, new string[] { clNo });
+                            break;
+                        default:
+                            Server.Broadcast(dataFromClient, clNo, true);
+                            Console.WriteLine("Message from Client - " + clNo + " " + dataFromClient);
+                            break;
                     }
-                    Server.Broadcast(dataFromClient, clNo, true, false);
-                    Console.WriteLine("Message from Client - " + clNo + " " + dataFromClient);
+
+
                 }
                 catch (Exception)
                 {

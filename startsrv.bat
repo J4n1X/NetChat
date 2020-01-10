@@ -1,0 +1,1 @@
+"C:\Users\janic\source\repos\NetChat\Server\bin\Debug\Server.exe" 127.0.0.1
