@@ -17,3 +17,14 @@ C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetCha
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.exe
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.pdb
 C:\Users\janic\source\repos\Network Adventures\NetChat\Client\obj\Release\NetChat.IPAddressPrompt.resources
+D:\Users\janic\Desktop\NetChat-master\Client\bin\Release\NetChat.exe.config
+D:\Users\janic\Desktop\NetChat-master\Client\bin\Release\NetChat.exe
+D:\Users\janic\Desktop\NetChat-master\Client\bin\Release\NetChat.pdb
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.csprojAssemblyReference.cache
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.ClientForm.resources
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.IPAddressPrompt.resources
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.Properties.Resources.resources
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.csproj.GenerateResource.cache
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.csproj.CoreCompileInputs.cache
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.exe
+D:\Users\janic\Desktop\NetChat-master\Client\obj\Release\NetChat.pdb

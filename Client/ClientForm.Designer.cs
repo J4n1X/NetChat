@@ -127,6 +127,7 @@
             // 
             // startServerButton
             // 
+            this.startServerButton.Enabled = false;
             this.startServerButton.Location = new System.Drawing.Point(256, 52);
             this.startServerButton.Name = "startServerButton";
             this.startServerButton.Size = new System.Drawing.Size(75, 23);

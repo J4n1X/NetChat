@@ -4,10 +4,10 @@
 using NetChat.Properties;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -76,13 +76,14 @@ namespace NetChat
 
         private void startServerButton_Click(object sender, EventArgs e)
         {
-            var Prompt = MessageBox.Show(Resources.ServerStartPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (Prompt == DialogResult.Yes)
+            var prompt = MessageBox.Show(Resources.ServerStartPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (prompt == DialogResult.Yes)
             {
-                IPAddressPrompt prompt = new IPAddressPrompt();
-                prompt.ShowDialog();
-
+                IPAddressPrompt ipPrompt = new IPAddressPrompt();
+                ipPrompt.ShowDialog();
+                ipPrompt.Dispose();
                 _Log.Add("Started Server from Client");
+
             }
         }
         //these 2 Methods do the same, but in different instances
@@ -109,7 +110,7 @@ namespace NetChat
                 chatHistory.DeselectAll();
             }
         }
-        
+
         //Cause artificial Crash
         private void causeLocalDomainCrashToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -127,17 +128,20 @@ namespace NetChat
             }
             catch (Exception)
             {
-                _Log.Add(Resources.ClosingError+"(They are not important, the Form is closing anyway!)");
+                _Log.Add(Resources.ClosingError + "(They are not important, the Form is closing anyway!)");
             }
             var Prompt = MessageBox.Show(Resources.SaveLogPrompt, Resources.MboxQuestionTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (Prompt == DialogResult.Yes)
             {
-                if (!File.Exists("NetChat.log")) { File.CreateText("NetChat.log"); }
-                StreamWriter file = new StreamWriter("NetChat.log",append:true);
-                file.WriteLine("--------------------\n" + DateTime.Now.ToString("dd.MM.yyyy HH:mm") + "\n--------------------\n");
-                foreach(string str in _Log) { file.WriteLine(str); }
+                FileStream file = File.Open("NetChat.log", FileMode.OpenOrCreate);
+                byte[] dateLine = Encoding.UTF8.GetBytes($"--------------------\n{DateTime.Now.ToString("dd.MM.yyyy HH:mm")}\n--------------------\n");
+                file.Write(dateLine, 0, dateLine.Length);
+                foreach (string str in _Log) 
+                {
+                    byte[] strBytes = Encoding.UTF8.GetBytes(str);
+                    file.Write(strBytes, 0, strBytes.Length);
+                }
                 file.Close();
-
             }
         }
 
@@ -151,7 +155,7 @@ namespace NetChat
             _Log.Add("FATAL:" + Resources.ApplicationThreadError + ": " + e.Exception);
             Application.Exit();
             throw e.Exception;
-            
+
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -160,16 +164,16 @@ namespace NetChat
             _Log.Add("FATAL: " + Resources.CurrentDomainError + ": " + (e.ExceptionObject as Exception));
             Application.Exit();
             throw (e.ExceptionObject as Exception);
-            
+
         }
 
-        
+
 
         //Non-Event-Methods
         private void send(string Message)
         {
-            if ((string.IsNullOrEmpty(Message)) || (Message == null)) { return; }
-            byte[] outStream = System.Text.Encoding.ASCII.GetBytes(Message + "$");
+            if ((string.IsNullOrEmpty(Message)) || (Message == null) || serverStream == default) { return; }
+            byte[] outStream = System.Text.Encoding.UTF8.GetBytes(Message + "$");
             serverStream.Write(outStream, 0, outStream.Length);
             serverStream.Flush();
             msgBox.Text = "";
@@ -199,7 +203,8 @@ namespace NetChat
         }
         private void DisposeObj()
         {
-            ctThread.Abort();
+            if(ctThread != default)
+                ctThread.Abort();
             clientSocket.Close();
         }
 
